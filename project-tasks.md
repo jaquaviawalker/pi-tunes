@@ -1,77 +1,90 @@
-# RFID Spotify Player - TDD Vertical Slice Development Tasks
+# RFID Spotify Player - TDD Vertical Slice Development Tasks (Hybrid Development)
 
-## Slice 1: Hardware Foundation Setup
+## 🏗️ Development Environment Strategy
 
-**🎯 DELIVERABLE**: Raspberry Pi with development environment ready for RFID and Node.js development
+**Computer Development**: Core logic, API integration, and business logic with mocked hardware  
+**Pi Development**: Hardware integration, GPIO testing, and final deployment  
+**Sync Method**: Git repository for code synchronization between environments
+
+## Slice 1: Computer-Only Development Setup
+
+**🎯 DELIVERABLE**: Complete development environment with hardware mocks for testing
+**💻 LOCATION**: Computer only (no Pi needed yet)
 
 ### Tests (TDD - Write FIRST, watch fail)
 
-- [ ] T001 System environment validation tests in tests/unit/test_system_setup.test.js
-- [ ] T002 GPIO access validation tests in tests/integration/test_gpio_access.spec.js
+- [x] T001 **Computer**: Environment detection tests in tests/unit/test_environment.test.js
+- [x] T002 **Computer**: Mock hardware validation tests in tests/unit/test_hardware_mocks.test.js
+- [x] T003 **Computer**: Project structure validation tests in tests/unit/test_project_setup.test.js
 
 ### Implementation (Make tests pass)
 
-- [ ] T003 Raspberry Pi OS installation and configuration
-- [ ] T004 Node.js (v18+) and npm installation with version verification
-- [ ] T005 Wi-Fi connection setup with network stability validation
-- [ ] T006 GPIO library installation and basic pin access in src/hardware/GPIOManager.js
-- [ ] T007 System package updates and dependency management
+- [ ] T004 **Computer**: Project structure setup with package.json and dependencies
+- [ ] T005 **Computer**: Environment detection utilities in src/utils/EnvironmentDetector.js
+- [ ] T006 **Computer**: Mock hardware classes in src/hardware/mocks/
+- [ ] T007 **Computer**: Git repository creation and version control setup
+- [ ] T008 **Computer**: Jest testing framework configuration
+- [ ] T009 **Computer**: Basic Express server setup for testing
 
 **Acceptance Criteria**:
 
-- ✅ Node.js version 18+ installed and accessible
-- ✅ GPIO pins accessible without sudo privileges
-- ✅ Wi-Fi connection stable with internet access
-- ✅ All system tests pass on Pi hardware
-- ✅ SSH access configured for remote development
+- ✅ Project runs on computer with mocked hardware
+- ✅ Environment automatically detects development vs Pi mode
+- ✅ All mock classes provide realistic hardware simulation
+- ✅ Test suite runs successfully with mocks
+- ✅ Git repository initialized for future Pi deployment
+- ✅ Express server starts and responds to health checks
 
 ---
 
-## Slice 2: RFID Reader System
+## Slice 2: RFID Reader System with Mock Development
 
-**🎯 DELIVERABLE**: RFID reader can detect tags and return unique IDs consistently
+**🎯 DELIVERABLE**: RFID reader working on Pi with computer-friendly mocks for development
+**💻 LOCATION**: Computer (mocks) + Pi (real hardware)
 
 ### Tests (TDD - Write FIRST, watch fail)
 
-- [ ] T008 RFID reader connection validation tests in tests/unit/test_rfid_connection.test.js
-- [ ] T009 Tag ID reading and validation tests in tests/integration/test_rfid_reader.spec.js
-- [ ] T010 Multiple tag detection accuracy tests in tests/integration/test_tag_uniqueness.spec.js
+- [ ] T010 **Computer**: Mock RFID reader behavior tests in tests/unit/test_mock_rfid.test.js
+- [ ] T011 **Computer**: RFID interface contract tests in tests/unit/test_rfid_interface.test.js
+- [ ] T012 **Pi**: Real RFID hardware tests in tests/integration/test_rfid_hardware.spec.js
 
 ### Implementation (Make tests pass)
 
-- [ ] T011 RC522 RFID reader physical wiring to GPIO pins
-- [ ] T012 RFID library installation and configuration in src/hardware/RFIDReader.js
-- [ ] T013 Tag scanning service with error handling in src/services/TagScannerService.js
-- [ ] T014 Tag ID validation and sanitization utilities in src/utils/TagValidator.js
-- [ ] T015 Continuous scanning loop with debouncing in src/hardware/ScanningManager.js
+- [ ] T013 **Computer**: RFID reader interface definition in src/interfaces/IRFIDReader.js
+- [ ] T014 **Computer**: Mock RFID reader with simulated scanning in src/hardware/mocks/MockRFIDReader.js
+- [ ] T015 **Pi**: RC522 RFID reader physical wiring and connection
+- [ ] T016 **Pi**: Real RFID reader implementation in src/hardware/RealRFIDReader.js
+- [ ] T017 **Both**: RFID factory service with environment detection in src/services/RFIDFactory.js
+- [ ] T018 **Both**: Tag scanning service with unified interface in src/services/TagScannerService.js
 
 **Acceptance Criteria**:
 
-- ✅ RFID reader successfully wired and detected
-- ✅ Unique tag IDs returned consistently for each physical tag
-- ✅ Multiple tags produce distinct, reproducible IDs
-- ✅ Scan debouncing prevents duplicate rapid reads
-- ✅ Error handling for no tag present or read failures
+- ✅ Mock RFID reader simulates tag scanning on computer
+- ✅ Real RFID reader detects physical tags on Pi
+- ✅ Same interface works for both mock and real implementations
+- ✅ Tests pass on both environments
+- ✅ Tag IDs are consistent and unique
 
 ---
 
-## Slice 3: Spotify API Integration
+## Slice 3: Spotify API Integration (Computer Development)
 
-**🎯 DELIVERABLE**: Application can authenticate with Spotify and control music playback
+**🎯 DELIVERABLE**: Complete Spotify integration developed and tested on computer
+**💻 LOCATION**: Computer
 
 ### Tests (TDD - Write FIRST, watch fail)
 
-- [ ] T016 Spotify authentication flow tests in tests/unit/test_spotify_auth.test.js
-- [ ] T017 Playback control integration tests in tests/integration/test_spotify_playback.spec.js
-- [ ] T018 Token refresh and error handling tests in tests/unit/test_spotify_token_manager.test.js
+- [ ] T019 **Computer**: Spotify authentication flow tests in tests/unit/test_spotify_auth.test.js
+- [ ] T020 **Computer**: Playback control integration tests in tests/integration/test_spotify_playback.spec.js
+- [ ] T021 **Computer**: Token refresh and error handling tests in tests/unit/test_spotify_token_manager.test.js
 
 ### Implementation (Make tests pass)
 
-- [ ] T019 Spotify Developer app registration and credential management
-- [ ] T020 OAuth 2.0 authentication service in src/services/SpotifyAuthService.js
-- [ ] T021 Playback control methods in src/services/SpotifyPlaybackService.js
-- [ ] T022 Token refresh mechanism in src/utils/TokenManager.js
-- [ ] T023 API rate limiting and error handling in src/utils/SpotifyAPIClient.js
+- [ ] T022 **Computer**: Spotify Developer app registration and credential management
+- [ ] T023 **Computer**: OAuth 2.0 authentication service in src/services/SpotifyAuthService.js
+- [ ] T024 **Computer**: Playback control methods in src/services/SpotifyPlaybackService.js
+- [ ] T025 **Computer**: Token refresh mechanism in src/utils/TokenManager.js
+- [ ] T026 **Computer**: API rate limiting and error handling in src/utils/SpotifyAPIClient.js
 
 **Acceptance Criteria**:
 
@@ -83,23 +96,24 @@
 
 ---
 
-## Slice 4: Tag-to-Album Mapping System
+## Slice 4: Tag-to-Album Mapping System (Computer Development)
 
-**🎯 DELIVERABLE**: RFID tags can be mapped to specific Spotify albums with persistent storage
+**🎯 DELIVERABLE**: Complete mapping system with persistent storage, developed on computer
+**💻 LOCATION**: Computer
 
 ### Tests (TDD - Write FIRST, watch fail)
 
-- [ ] T024 Mapping data validation tests in tests/unit/test_tag_mapping_model.test.js
-- [ ] T025 CRUD operations tests in tests/integration/test_mapping_storage.spec.js
-- [ ] T026 Tag resolution and fallback tests in tests/unit/test_tag_resolver.test.js
+- [ ] T027 **Computer**: Mapping data validation tests in tests/unit/test_tag_mapping_model.test.js
+- [ ] T028 **Computer**: CRUD operations tests in tests/integration/test_mapping_storage.spec.js
+- [ ] T029 **Computer**: Tag resolution and fallback tests in tests/unit/test_tag_resolver.test.js
 
 ### Implementation (Make tests pass)
 
-- [ ] T027 Mapping data model with validation in src/models/TagMapping.js
-- [ ] T028 JSON storage service with file operations in src/services/MappingStorageService.js
-- [ ] T029 Tag-to-album resolution service in src/services/TagResolverService.js
-- [ ] T030 Mapping CRUD operations in src/controllers/MappingController.js
-- [ ] T031 Default mapping and fallback behavior in src/config/DefaultMappings.js
+- [ ] T030 **Computer**: Mapping data model with validation in src/models/TagMapping.js
+- [ ] T031 **Computer**: JSON storage service with file operations in src/services/MappingStorageService.js
+- [ ] T032 **Computer**: Tag-to-album resolution service in src/services/TagResolverService.js
+- [ ] T033 **Computer**: Mapping CRUD operations in src/controllers/MappingController.js
+- [ ] T034 **Computer**: Default mapping and fallback behavior in src/config/DefaultMappings.js
 
 **Acceptance Criteria**:
 
@@ -111,119 +125,209 @@
 
 ---
 
-## Slice 5: Core Integration - RFID to Playback
+## Slice 5: Core Integration - Computer Testing, Pi Deployment
 
-**🎯 DELIVERABLE**: Scanning an RFID tag triggers the mapped album to play on Spotify
+**🎯 DELIVERABLE**: Complete scan-to-play workflow tested on computer, deployed to Pi
+**💻 LOCATION**: Computer (development) → Pi (integration testing)
 
 ### Tests (TDD - Write FIRST, watch fail)
 
-- [ ] T032 End-to-end scan-to-play workflow tests in tests/integration/test_core_workflow.spec.js
-- [ ] T033 Error handling integration tests in tests/integration/test_error_scenarios.spec.js
-- [ ] T034 Express server API tests in tests/unit/test_express_routes.test.js
+- [ ] T035 **Computer**: End-to-end workflow tests with mocks in tests/integration/test_core_workflow_mock.spec.js
+- [ ] T036 **Computer**: Error handling integration tests in tests/integration/test_error_scenarios.spec.js
+- [ ] T037 **Pi**: Real hardware integration tests in tests/integration/test_pi_integration.spec.js
 
 ### Implementation (Make tests pass)
 
-- [ ] T035 Express server setup with middleware in src/server/app.js
-- [ ] T036 Main application orchestrator in src/controllers/MainController.js
-- [ ] T037 RFID scan event handling in src/handlers/ScanEventHandler.js
-- [ ] T038 Spotify playback trigger service in src/services/PlaybackTriggerService.js
-- [ ] T039 Error logging and monitoring system in src/utils/Logger.js
+- [ ] T038 **Computer**: Express server setup with middleware in src/server/app.js
+- [ ] T039 **Computer**: Main application orchestrator in src/controllers/MainController.js
+- [ ] T040 **Computer**: RFID scan event handling in src/handlers/ScanEventHandler.js
+- [ ] T041 **Computer**: Spotify playback trigger service in src/services/PlaybackTriggerService.js
+- [ ] T042 **Both**: Git deployment and Pi synchronization
+- [ ] T043 **Pi**: Real hardware integration testing and debugging
 
 **Acceptance Criteria**:
 
-- ✅ RFID tag scan immediately triggers album playback
-- ✅ Different tags play different mapped albums
-- ✅ System handles Spotify API errors gracefully
-- ✅ Scan-to-play latency under 2 seconds
-- ✅ Express server provides health check endpoint
+- ✅ Mock workflow works perfectly on computer
+- ✅ Code deploys successfully to Pi via Git
+- ✅ Real RFID scan triggers Spotify playbook on Pi
+- ✅ Error handling works on both environments
+- ✅ Scan-to-play latency under 2 seconds on Pi
 
 ---
 
-## Slice 6: LCD Display Feedback
+## Slice 6: LCD Display Integration (Pi Development)
 
 **🎯 DELIVERABLE**: LCD display shows current album/artist and system status
+**💻 LOCATION**: Pi (hardware required)
 
 ### Tests (TDD - Write FIRST, watch fail)
 
-- [ ] T040 LCD display connection tests in tests/unit/test_lcd_driver.test.js
-- [ ] T041 Display content formatting tests in tests/integration/test_display_manager.spec.js
-- [ ] T042 Real-time update tests in tests/integration/test_display_updates.spec.js
+- [ ] T044 **Computer**: Mock LCD display tests in tests/unit/test_mock_lcd.test.js
+- [ ] T045 **Pi**: Real LCD hardware connection tests in tests/integration/test_lcd_hardware.spec.js
+- [ ] T046 **Pi**: Display content and updates tests in tests/integration/test_display_updates.spec.js
 
 ### Implementation (Make tests pass)
 
-- [ ] T043 LCD display I2C wiring and driver setup
-- [ ] T044 Display driver service in src/hardware/LCDDisplayDriver.js
-- [ ] T045 Display content manager in src/services/DisplayContentService.js
-- [ ] T046 Real-time status updates in src/controllers/DisplayController.js
-- [ ] T047 Display message templates in src/templates/DisplayTemplates.js
+- [ ] T047 **Computer**: Mock LCD display for computer development in src/hardware/mocks/MockLCDDisplay.js
+- [ ] T048 **Computer**: Display interface definition in src/interfaces/ILCDDisplay.js
+- [ ] T049 **Pi**: LCD display I2C wiring and hardware setup
+- [ ] T050 **Pi**: Real LCD display driver in src/hardware/RealLCDDisplay.js
+- [ ] T051 **Both**: Display factory with environment detection in src/services/DisplayFactory.js
+- [ ] T052 **Both**: Display content manager in src/services/DisplayContentService.js
 
 **Acceptance Criteria**:
 
-- ✅ LCD displays startup welcome message
+- ✅ Mock display works during computer development
+- ✅ Real LCD displays startup welcome message on Pi
 - ✅ Album name and artist shown when tag is scanned
-- ✅ "Now Playing" status updates from Spotify API
 - ✅ Display handles special characters correctly
-- ✅ Screen clears/updates for new scans
+- ✅ Same code works with both mock and real displays
 
 ---
 
-## Slice 7: System Integration & Testing
+## Slice 7: System Integration & Pi Testing
 
-**🎯 DELIVERABLE**: Complete system tested end-to-end with multiple scenarios
+**🎯 DELIVERABLE**: Complete system tested end-to-end on Pi hardware
+**💻 LOCATION**: Pi (final integration)
 
 ### Tests (TDD - Write FIRST, watch fail)
 
-- [ ] T048 Multi-tag scenario tests in tests/integration/test_multiple_tags.spec.js
-- [ ] T049 System reliability tests in tests/integration/test_system_reliability.spec.js
-- [ ] T050 Performance benchmark tests in tests/performance/test_response_times.spec.js
+- [ ] T053 **Pi**: Multi-tag scenario tests in tests/integration/test_multiple_tags_pi.spec.js
+- [ ] T054 **Pi**: System reliability tests in tests/integration/test_system_reliability_pi.spec.js
+- [ ] T055 **Pi**: Performance benchmark tests in tests/performance/test_pi_performance.spec.js
 
 ### Implementation (Make tests pass)
 
-- [ ] T051 System integration validation and bug fixes
-- [ ] T052 Performance optimization for scan-to-play latency
-- [ ] T053 Network connectivity resilience improvements
-- [ ] T054 Memory management and cleanup routines
-- [ ] T055 Comprehensive error recovery mechanisms
+- [ ] T056 **Pi**: Final code deployment and synchronization
+- [ ] T057 **Pi**: System integration validation and bug fixes
+- [ ] T058 **Pi**: Performance optimization for Pi hardware
+- [ ] T059 **Pi**: Network connectivity resilience testing
+- [ ] T060 **Pi**: Memory management validation on Pi
 
 **Acceptance Criteria**:
 
-- ✅ 5+ different RFID tags work with distinct albums
+- ✅ 5+ different RFID tags work with distinct albums on Pi
 - ✅ System handles rapid successive scans gracefully
-- ✅ 99% successful tag recognition rate achieved
+- ✅ 99% successful tag recognition rate on Pi hardware
 - ✅ System recovers from network/API interruptions
-- ✅ 24+ hour continuous operation without memory leaks
+- ✅ 24+ hour continuous operation without issues
 
 ---
 
-## Slice 8: Production Polish & Deployment
+## Slice 8: Production Polish & Deployment (Pi Finalization)
 
-**🎯 DELIVERABLE**: Production-ready system with user-friendly features and documentation
+**🎯 DELIVERABLE**: Production-ready system with user-friendly features
+**💻 LOCATION**: Pi (final deployment)
 
 ### Tests (TDD - Write FIRST, watch fail)
 
-- [ ] T056 User experience flow tests in tests/integration/test_user_workflows.spec.js
-- [ ] T057 Configuration management tests in tests/unit/test_config_manager.test.js
-- [ ] T058 Auto-startup functionality tests in tests/integration/test_system_startup.spec.js
+- [ ] T061 **Pi**: User experience flow tests in tests/integration/test_user_workflows_pi.spec.js
+- [ ] T062 **Pi**: Auto-startup functionality tests in tests/integration/test_system_startup_pi.spec.js
+- [ ] T063 **Pi**: Production deployment validation tests in tests/integration/test_production_ready.spec.js
 
 ### Implementation (Make tests pass)
 
-- [ ] T059 Startup splash screen and branding in src/ui/StartupScreen.js
-- [ ] T060 Configuration file system in src/config/UserConfig.js
-- [ ] T061 Auto-start on Pi boot configuration
-- [ ] T062 User documentation and setup guide
-- [ ] T063 Physical control integration (optional buttons) in src/hardware/PhysicalControls.js
+- [ ] T064 **Pi**: Production configuration management
+- [ ] T065 **Pi**: Auto-start on Pi boot configuration
+- [ ] T066 **Pi**: System service setup and management
+- [ ] T067 **Pi**: User documentation and setup validation
+- [ ] T068 **Pi**: Final production testing and validation
 
 **Acceptance Criteria**:
 
-- ✅ Professional startup sequence with project branding
-- ✅ User-configurable settings (volume, display timeout, etc.)
 - ✅ System starts automatically on Pi boot
-- ✅ Clear user documentation for setup and operation
-- ✅ Graceful handling of edge cases and user errors
+- ✅ Professional user experience with error handling
+- ✅ System runs reliably in production environment
+- ✅ Clear documentation for setup and operation
+- ✅ Graceful handling of all edge cases
 
 ---
 
-## TDD Development Guidelines
+## 🏗️ Hybrid Development Guidelines
+
+### Development Environment Setup
+
+```bash
+# On your computer - Initial setup
+mkdir rfid-spotify-player
+cd rfid-spotify-player
+npm init -y
+npm install --save express spotify-web-api-sdk
+npm install --save-dev jest supertest
+
+# Pi-specific hardware dependencies
+npm install --save mfrc522-rpi rpi-gpio i2c-bus
+
+# Set up Git for sync
+git init
+git remote add origin https://github.com/yourusername/rfid-spotify-player.git
+```
+
+### Environment Detection Pattern
+
+```javascript
+// src/utils/EnvironmentDetector.js
+class EnvironmentDetector {
+  static isRaspberryPi() {
+    return (
+      process.platform === 'linux' &&
+      (process.arch === 'arm' || process.arch === 'arm64')
+    );
+  }
+
+  static getHardwareFactory() {
+    return this.isRaspberryPi() ? 'real' : 'mock';
+  }
+}
+```
+
+### Mock Development Strategy
+
+- **Computer Development**: Use mocks for all hardware (RFID, LCD, GPIO)
+- **Interface-Driven**: Ensure mocks implement same interface as real hardware
+- **Behavior Simulation**: Mocks should simulate realistic hardware behavior
+- **Test Coverage**: Same tests should pass on both mock and real hardware
+
+### Git Sync Workflow
+
+```bash
+# Initial setup - Computer
+git init
+git remote add origin https://github.com/yourusername/rfid-spotify-player.git
+git push -u origin main
+
+# Development cycle
+# Option A: Remote-SSH (Recommended)
+# 1. VS Code Remote-SSH → Edit files directly on Pi
+# 2. Git commit/push from Pi via VS Code terminal
+
+# Option B: Local development with sync
+# Computer: git add . && git commit -m "message" && git push
+# Pi (via Remote-SSH): git pull origin main
+```
+
+### Remote-SSH Setup Steps
+
+```bash
+# 1. Enable SSH on Pi
+sudo systemctl enable ssh && sudo systemctl start ssh
+
+# 2. Find Pi IP address
+hostname -I
+
+# 3. Install "Remote - SSH" extension in VS Code
+
+# 4. Add SSH config (Ctrl+Shift+P → "Remote-SSH: Add New SSH Host")
+Host my-raspberry-pi
+    HostName 192.168.1.100  # Your Pi's IP
+    User pi
+    Port 22
+
+# 5. Connect via Remote Explorer → Connect to Host
+# 6. Open /home/pi/rfid-spotify-player folder
+```
+
+### TDD Development Guidelines
 
 ### Test Structure
 

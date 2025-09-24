@@ -1,12 +1,9 @@
-//RFID Scanner Interface
-// - scan() - returns number (tag ID)
-// - isConnected() - boolean
-// - Initialize ()
+import { RFIDScanner } from '../../src/RFIDScanner';
 
 describe('RFID Scanner Interface', () => {
   describe('isConnected()', () => {
     //
-    test('Scanner not initialized', () => {
+    test('RFIDScanner not initialized', () => {
       const rfidScanner = new RFIDScanner();
       expect(rfidScanner.isConnected()).toBe(false);
     });
@@ -29,7 +26,7 @@ describe('RFID Scanner Interface', () => {
   describe('scan()', () => {
     test('throws error if scan called before Initialization', () => {
       const rfidScanner = new RFIDScanner();
-      expect(() => rfidScanner.scan()).toThrow('RFIDScanner');
+      expect(() => rfidScanner.scan()).toThrow('RFIDScanner not initialized');
     });
     test('passes when scanner is initialized and returns a tag ID ', async () => {
       const rfidScanner = new RFIDScanner();

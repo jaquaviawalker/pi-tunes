@@ -8,7 +8,8 @@
     "dev": "nodemon server.js",
     "test": "jest --forceExit",
     "build": "tsc",
-    "pretest": "tsc"
+    "pretest": "tsc",
+    "test:spotify": "npm run build && node scripts/test-spotify.js"
   },
   "repository": {
     "type": "git",

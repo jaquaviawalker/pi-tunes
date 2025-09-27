@@ -19,6 +19,16 @@ export class AlbumMapping {
     await instance.loadMapping();
     return instance;
   }
+  private validateTagId = (tagId: string) => {
+    const regex = /^[A-Fa-f0-9]{8,20}$/;
+    return regex.test(tagId);
+  };
+
+  private validateSpotifyId = (spotifyId: string) => {
+    const regex = /^[A-Za-z0-9]{22}$/;
+    return regex.test(spotifyId);
+  };
+
   public saveMapping = async (): Promise<void> => {
     try {
       const data = this.mappings;
@@ -57,6 +67,16 @@ export class AlbumMapping {
       if (typeof tagId !== 'string' || typeof albumId !== 'string') {
         throw new Error('Input must be a string');
       }
+      if (!this.validateTagId(tagId)) {
+        throw new Error(
+          `Invalid tag ID format: ${tagId}. Must be 8-20 hexadecimal characters.`
+        );
+      }
+      if (!this.validateSpotifyId(albumId)) {
+        throw new Error(
+          `Invalid Spotify album ID format: ${albumId}. Must be 22 alphanumeric characters.`
+        );
+      }
 
       this.mappings[tagId] = {
         albumId,
@@ -79,6 +99,11 @@ export class AlbumMapping {
       }
       if (!this.mappings[tagId]) {
         throw new Error('Tag does not exist');
+      }
+      if (!this.validateTagId(tagId)) {
+        throw new Error(
+          `Invalid tag ID format: ${tagId}. Must be 8-20 hexadecimal characters.`
+        );
       }
       delete this.mappings[tagId];
       await this.saveMapping();
@@ -105,6 +130,17 @@ export class AlbumMapping {
       }
       if (typeof tagId !== 'string' || typeof newAlbumId !== 'string') {
         throw new Error('Input must be a string');
+      }
+      if (!this.validateTagId(tagId)) {
+        throw new Error(
+          `Invalid tag ID format: ${tagId}. Must be 8-20 hexadecimal characters.`
+        );
+      }
+
+      if (!this.validateSpotifyId(newAlbumId)) {
+        throw new Error(
+          `Invalid Spotify album ID format: ${newAlbumId}. Must be 22 alphanumeric characters.`
+        );
       }
       if (!this.mappings[tagId]) {
         throw new Error('Tag does not exist');

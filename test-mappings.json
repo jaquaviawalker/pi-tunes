@@ -1,8 +1,8 @@
 {
-  "12345": {
-    "albumId": "9852089"
+  "1A2B3C4D5E6F": {
+    "albumId": "123456789012345678901X"
   },
-  "anotherTag": {
-    "albumId": "anotherAlbum"
+  "ABCDEF123456": {
+    "albumId": "123456789012345678901Z"
   }
 }

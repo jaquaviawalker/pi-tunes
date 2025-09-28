@@ -9,7 +9,7 @@ describe('RFID Scanner Interface', () => {
     });
     test('returns true after Initialization', async () => {
       const rfidScanner = new RFIDScanner();
-      await rfidScanner.initialize();
+      await rfidScanner.init();
       expect(rfidScanner.isConnected()).toBe(true);
     });
   });
@@ -19,7 +19,7 @@ describe('RFID Scanner Interface', () => {
       const rfidScanner = new RFIDScanner();
       expect(rfidScanner.isConnected()).toBe(false);
       // Call startup and await its completion
-      await rfidScanner.initialize();
+      await rfidScanner.init();
       expect(rfidScanner.isConnected()).toBe(true);
     });
   });
@@ -30,7 +30,7 @@ describe('RFID Scanner Interface', () => {
     });
     test('passes when scanner is initialized and returns a tag ID ', async () => {
       const rfidScanner = new RFIDScanner();
-      await rfidScanner.initialize();
+      await rfidScanner.init();
 
       const id = rfidScanner.scan();
 

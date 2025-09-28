@@ -20,7 +20,7 @@ export class RFIDScanner {
     }
   }
 
-  public async initialize(): Promise<void> {
+  public async init(): Promise<void> {
     return new Promise((resolve) => {
       setTimeout(() => {
         // Simulate hardware initialization completed

@@ -2,7 +2,7 @@ import { RFIDScanner } from '../src/RFIDScanner.js';
 const testScanner = async () => {
   try {
     const scanner = new RFIDScanner();
-    await scanner.initialize();
+    await scanner.init();
 
     for (let i = 1; i <= 10; i++) {
       const tagID = scanner.scan();

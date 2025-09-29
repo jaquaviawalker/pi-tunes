@@ -25,15 +25,17 @@ app.post('/scan/:tagId', async (req: Request, res: Response) => {
     if (!/^[A-Fa-f0-9]{8,20}$/.test(tagId)) {
       throw new Error('Invalid tag format: must be 8-20 hex characters');
     }
-    console.log(`Tag ID: ${tagId}`);
-
     const client = new SpotifyClient();
     await client.authenticate();
     const albums = await client.searchAlbum(album);
-    const match = albums.filter(
-      (album) => album.artists[0]?.name.toLowerCase() === artist.toLowerCase()
-    )[0];
-
+    if (!Array.isArray(albums) || albums.length === 0) {
+      throw new Error('No albums found for the given album name.');
+    }
+    const match = albums.find(
+      (album) =>
+        typeof album.artist === 'string' &&
+        album.artist.trim().toLowerCase() === artist.toLowerCase()
+    );
     if (!match) {
       throw new Error('No matching album found for artist');
     }

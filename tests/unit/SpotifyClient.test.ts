@@ -19,6 +19,18 @@ describe('SpotifyClient', () => {
         } as any);
       });
 
+    jest
+      .spyOn(SpotifyWebApi.prototype, 'authorizationCodeGrant')
+      .mockImplementation(() => {
+        return Promise.resolve({
+          body: {
+            access_token: 'mock-access-token',
+            refresh_token: 'mock-refresh-token',
+            expires_in: 3600,
+          },
+        } as any);
+      });
+
     // Mock the setAccessToken method that will be called during authentication
     jest
       .spyOn(SpotifyWebApi.prototype, 'setAccessToken')
@@ -36,6 +48,14 @@ describe('SpotifyClient', () => {
     expect(spotifyClient.isAuthenticated()).toBe(false);
 
     await spotifyClient.authenticate();
+    expect(spotifyClient.isAuthenticated()).toBe(true);
+  });
+
+  test('should authenticate and provide access token', async () => {
+    const spotifyClient = new SpotifyClient();
+    expect(spotifyClient.isAuthenticated()).toBe(false);
+
+    await spotifyClient.authCode();
     expect(spotifyClient.isAuthenticated()).toBe(true);
   });
 

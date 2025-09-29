@@ -32,11 +32,15 @@ export class SpotifyClient {
    */
   private tokenExpirationThreshold: number;
 
+  private code: string;
+
   /**
    * Creates a new SpotifyClient instance.
    * Initializes the Spotify Web API with credentials from environment variables.
+   * @param {string} [code] - Optional authorization code for authCode flow
    */
   constructor() {
+    this.code = '';
     this.authenticationStatus = false;
     this.tokenExpirationTime = 0;
     this.tokenExpirationThreshold = 60000;
@@ -75,6 +79,45 @@ export class SpotifyClient {
     });
   }
 
+  public async authCode(): Promise<void> {
+    try {
+      const data = await this.spotifyApi.authorizationCodeGrant(this.code);
+      this.authenticationStatus = true;
+      this.tokenExpirationTime = Date.now() + data.body.expires_in * 1000;
+      console.log('The access token expires in ' + data.body.expires_in);
+      console.log('The access token is ' + data.body.access_token);
+
+      this.spotifyApi.setAccessToken(data.body.access_token);
+      this.spotifyApi.setRefreshToken(data.body.refresh_token);
+    } catch (err) {
+      console.error(
+        'Something went wrong when retrieving an access token',
+        err
+      );
+      throw err;
+    }
+  }
+
+  public async refreshAccessToken(): Promise<void> {
+    if (!this.isAuthenticated() || !this.isTokenExpired()) {
+      return;
+    }
+    try {
+      const data = await this.spotifyApi.refreshAccessToken();
+      this.spotifyApi.setAccessToken(data.body['access_token']);
+      if (data.body['refresh_token']) {
+        this.spotifyApi.setRefreshToken(data.body['refresh_token']);
+      }
+      this.tokenExpirationTime = Date.now() + data.body.expires_in * 1000;
+      this.authenticationStatus = true;
+      console.log('The access token has been refreshed.');
+      console.log('The new access token expires in ' + data.body['expires_in']);
+    } catch (err) {
+      this.authenticationStatus = false;
+      console.error('Could not refresh access token', err);
+      throw err;
+    }
+  }
   /**
    * Ensures the client is authenticated before making API calls.
    * If not authenticated or the token is expired, it will authenticate.

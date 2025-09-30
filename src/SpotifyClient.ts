@@ -32,7 +32,7 @@ export class SpotifyClient {
    */
   private tokenExpirationThreshold: number;
 
-  private code: string;
+  public code: string;
 
   /**
    * Creates a new SpotifyClient instance.
@@ -78,6 +78,22 @@ export class SpotifyClient {
       );
     });
   }
+  public generateRandomString(length: number) {
+    let text = '';
+    let possible =
+      'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+
+    for (let i = 0; i < length; i++) {
+      text += possible.charAt(Math.floor(Math.random() * possible.length));
+    }
+    return text;
+  }
+
+  public userLogin(): string {
+    let state = this.generateRandomString(16);
+    const scopes = ['user-read-private', 'user-read-email'];
+    return this.spotifyApi.createAuthorizeURL(scopes, state);
+  }
 
   public async authCode(): Promise<void> {
     try {
@@ -86,6 +102,7 @@ export class SpotifyClient {
       this.tokenExpirationTime = Date.now() + data.body.expires_in * 1000;
       console.log('The access token expires in ' + data.body.expires_in);
       console.log('The access token is ' + data.body.access_token);
+      console.log('The access token is ' + data.body.refresh_token);
 
       this.spotifyApi.setAccessToken(data.body.access_token);
       this.spotifyApi.setRefreshToken(data.body.refresh_token);

@@ -1,7 +1,5 @@
 import express, { Request, Response } from 'express';
-import { AlbumMapping } from './src/AlbumMapping';
-import { RFIDScanner } from './src/RFIDScanner';
-import { SpotifyClient } from './src/SpotifyClient';
+import playbackRoutes from './routes/playbackRoutes';
 
 import dotenv from 'dotenv';
 dotenv.config();
@@ -12,10 +10,7 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-// Basic route for Task 5A - "Hello World" response
-app.get('/', (req: Request, res: Response) => {
-  res.send('Hello World! Welcome to the RFID Spotify Player API');
-});
+app.use('/api', playbackRoutes);
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => {

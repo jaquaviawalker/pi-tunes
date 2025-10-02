@@ -386,6 +386,14 @@ export class SpotifyClient {
   public setAlbumId(albumId: string): void {
     this.albumId = albumId;
   }
+  /**
+   * Sets the Spotify authorization code to be used for Authorization
+   *
+   * @param code - Spotify authorization code
+   */
+  public setCode(code: string): void {
+    this.code = code;
+  }
 
   /**
    * Sets the Spotify device ID to use for playback

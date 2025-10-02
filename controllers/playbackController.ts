@@ -4,7 +4,7 @@ import { SpotifyClient, AuthType } from '../src/SpotifyClient';
 import logger from '../utils/logger';
 import { Request, Response } from 'express';
 
-export async function playAlbum(req: Request, res: Response) {
+export async function handlePlayAlbum(req: Request, res: Response) {
   logger.info('Album playback requested');
   try {
     const scanner = new RFIDScanner();

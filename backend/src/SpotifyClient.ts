@@ -84,22 +84,22 @@ export class SpotifyClient {
   ): Promise<void> {
     try {
       switch (authType) {
-        case AuthType.CLIENT_CREDENTIALS:
-          await this.authenticateWithClientCredentials();
-          break;
-        case AuthType.AUTH_CODE:
-          if (!this.code) {
-            throw new Error(
-              'Authorization code is required for AUTH_CODE strategy'
-            );
-          }
-          await this.authenticateWithAuthCode();
-          break;
-        case AuthType.REFRESH_TOKEN:
-          await this.authenticateWithRefreshToken();
-          break;
-        default:
-          throw new Error(`Unsupported authentication type: ${authType}`);
+      case AuthType.CLIENT_CREDENTIALS:
+        await this.authenticateWithClientCredentials();
+        break;
+      case AuthType.AUTH_CODE:
+        if (!this.code) {
+          throw new Error(
+            'Authorization code is required for AUTH_CODE strategy'
+          );
+        }
+        await this.authenticateWithAuthCode();
+        break;
+      case AuthType.REFRESH_TOKEN:
+        await this.authenticateWithRefreshToken();
+        break;
+      default:
+        throw new Error(`Unsupported authentication type: ${authType}`);
       }
     } catch (error) {
       logger.error('Authentication failed', {
@@ -135,7 +135,7 @@ export class SpotifyClient {
   }
   public generateRandomString(length: number) {
     let text = '';
-    let possible =
+    const possible =
       'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
 
     for (let i = 0; i < length; i++) {
@@ -145,7 +145,7 @@ export class SpotifyClient {
   }
 
   public userLogin(): string {
-    let state = this.generateRandomString(16);
+    const state = this.generateRandomString(16);
     const scopes = [
       'user-read-private',
       'user-read-email',

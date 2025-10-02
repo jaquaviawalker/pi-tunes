@@ -120,7 +120,7 @@ export class AlbumMapping {
         error.code === 'ENOENT'
       ) {
         logger.info(
-          `No existing mappings file found. Starting with empty mappings.`,
+          'No existing mappings file found. Starting with empty mappings.',
           { path: this.filePath }
         );
         this.mappings = {};

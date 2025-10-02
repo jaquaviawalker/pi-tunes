@@ -24,17 +24,17 @@ describe('RFID Scanner Interface', () => {
     });
   });
   describe('scan()', () => {
-    test('throws error if scan called before Initialization', () => {
+    test('throws error if scan called before Initialization', async () => {
       const rfidScanner = new RFIDScanner();
-      expect(() => rfidScanner.scan()).toThrow('RFIDScanner not initialized');
+      await expect(rfidScanner.scan()).rejects.toThrow('RFIDScanner not initialized');
     });
     test('passes when scanner is initialized and returns a tag ID ', async () => {
       const rfidScanner = new RFIDScanner();
       await rfidScanner.init();
 
-      const id = rfidScanner.scan();
+      const id = await rfidScanner.scan();
 
-      expect(typeof id).toBe('number');
+      expect(typeof id).toBe('string');
     });
   });
 });

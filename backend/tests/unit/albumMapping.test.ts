@@ -1,5 +1,6 @@
 import { AlbumMapping } from '../../src/AlbumMapping';
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 let albumMap: any;
 // Valid format examples
 const validTagId = '1A2B3C4D5E6F'; // Valid hexadecimal
@@ -14,6 +15,13 @@ const invalidAlbumId = 'too-short';
 
 // Reset for each test
 beforeEach(async () => {
+  // Create an empty test-mappings.json file for each test
+  // eslint-disable-next-line @typescript-eslint/no-require-imports
+  await require('fs/promises').writeFile(
+    // eslint-disable-next-line @typescript-eslint/no-require-imports
+    require('path').join(process.cwd(), 'test-mappings.json'),
+    JSON.stringify({})
+  );
   albumMap = await AlbumMapping.create('test-mappings.json');
 });
 
@@ -27,13 +35,14 @@ describe('should Tag to ablum mapping', () => {
   // Test null input error
   test('should throw error if parameters are null', async () => {
     await expect(albumMap.addMapping(null, null)).rejects.toThrow(
-      'Input cannot be empty'
+      'Tag ID cannot be empty'
     );
   });
 
   test('should throw error if parameters are a number ', async () => {
-    await expect(albumMap.addMapping(123, 456)).rejects.toThrow(
-      'Input must be a string'
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    await expect(albumMap.addMapping(123 as any, 456 as any)).rejects.toThrow(
+      'Tag ID must be a string'
     );
   });
 
@@ -64,17 +73,17 @@ describe('should Tag to ablum mapping', () => {
 
   test('should throw error when removing with invalid tag ID format', async () => {
     await expect(albumMap.removeMapping(invalidTagId)).rejects.toThrow(
-      'Tag does not exist'
+      'Invalid tag ID format: INVALID!. Must be 8-20 hexadecimal characters.'
     );
   });
   test('should list all mappings ', async () => {
-    const emptyList = albumMap.listAllMappings();
+    const emptyList = await albumMap.listAllMappings();
     expect(emptyList).toHaveLength(0);
 
     await albumMap.addMapping(tagId, albumId);
     await albumMap.addMapping('ABCDEF123456', '123456789012345678901Z');
 
-    const mappingsList = albumMap.listAllMappings();
+    const mappingsList = await albumMap.listAllMappings();
 
     expect(mappingsList).toHaveLength(2);
 

@@ -7,11 +7,17 @@
     "outDir": "backend/dist",
     "rootDir": ".",
     "strict": true,
-    "moduleDetection": "force"
+    "moduleDetection": "force",
+    "resolveJsonModule": true
   },
   "include": [
     "src/**/*",
     "scripts/**/*",
-    "backend/interfaces/RfidConfiguration.ts"
+    "controllers/**/*", 
+    "interfaces/**/*", 
+    "routes/**/*",
+    "tests/**/*",
+    "utils/**/*",
+    "server.ts"
   ]
 }

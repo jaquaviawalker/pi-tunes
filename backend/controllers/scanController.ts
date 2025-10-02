@@ -1,7 +1,7 @@
 import { Response, Request } from 'express';
-import logger from '../utils/logger';
-import { SpotifyClient } from '../src/SpotifyClient';
-import { AlbumMapping } from '../src/AlbumMapping';
+import logger from '../../utils/logger';
+import { SpotifyClient } from '../../src/SpotifyClient';
+import { AlbumMapping } from '../../src/AlbumMapping';
 
 export async function handleScanTagToAlbum(req: Request, res: Response) {
   const tagId = req.params.tagId;

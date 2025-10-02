@@ -3,10 +3,7 @@ import playbackRoutes from './routes/playbackRoutes';
 import authRoutes from './routes/authRoutes';
 import scanRoutes from './routes/authRoutes';
 import testRoutes from './routes/testRoutes';
-// Using require for cors since TypeScript can't find type declarations
-// eslint-disable-next-line @typescript-eslint/no-require-imports
-const cors = require('cors');
-
+import cors from 'cors';
 import dotenv from 'dotenv';
 dotenv.config();
 

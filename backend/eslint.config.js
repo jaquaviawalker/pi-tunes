@@ -6,12 +6,12 @@ export default tseslint.config(
   ...tseslint.configs.recommended,
   {
     ignores: [
-      'node_modules/**', 
-      'dist/**', 
-      'coverage/**', 
+      'node_modules/**',
+      'dist/**',
+      'coverage/**',
       '*.json',
       'backend/dist/**',
-      'scripts/*.js' // Ignore script JavaScript files
+      'scripts/*.js', // Ignore script JavaScript files
     ],
     languageOptions: {
       ecmaVersion: 2022,
@@ -20,33 +20,33 @@ export default tseslint.config(
       // Removed project option to avoid TypeScript project errors
       globals: {
         // Node.js global variables
-        'process': 'readonly',
-        'console': 'readonly',
-        'module': 'readonly',
-        'require': 'readonly',
-        '__dirname': 'readonly',
-        '__filename': 'readonly',
-        'setTimeout': 'readonly',
-        'clearTimeout': 'readonly',
+        process: 'readonly',
+        console: 'readonly',
+        module: 'readonly',
+        require: 'readonly',
+        __dirname: 'readonly',
+        __filename: 'readonly',
+        setTimeout: 'readonly',
+        clearTimeout: 'readonly',
         // Jest globals
-        'describe': 'readonly',
-        'test': 'readonly',
-        'expect': 'readonly',
-        'it': 'readonly',
-        'jest': 'readonly',
-        'beforeEach': 'readonly',
-        'afterEach': 'readonly',
-        'beforeAll': 'readonly',
-        'afterAll': 'readonly',
-      }
+        describe: 'readonly',
+        test: 'readonly',
+        expect: 'readonly',
+        it: 'readonly',
+        jest: 'readonly',
+        beforeEach: 'readonly',
+        afterEach: 'readonly',
+        beforeAll: 'readonly',
+        afterAll: 'readonly',
+      },
     },
     rules: {
-      'indent': ['error', 2],
+      indent: ['error', 2],
       'linebreak-style': ['error', 'unix'],
-      'quotes': ['error', 'single'],
-      'semi': ['error', 'always'],
+      quotes: ['error', 'single'],
+      semi: ['error', 'always'],
       '@typescript-eslint/explicit-module-boundary-types': 'off',
-      '@typescript-eslint/no-explicit-any': 'warn'
-    }
+      '@typescript-eslint/no-explicit-any': 'warn',
+    },
   }
 );

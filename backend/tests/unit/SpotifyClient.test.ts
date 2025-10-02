@@ -8,7 +8,7 @@ describe('SpotifyClient', () => {
   // Mock credentials grant for all tests
   beforeEach(() => {
     // Mock the clientCredentialsGrant method on the prototype
-     
+
     jest
       .spyOn(SpotifyWebApi.prototype, 'clientCredentialsGrant')
       .mockImplementation(() => {
@@ -21,7 +21,6 @@ describe('SpotifyClient', () => {
         } as any);
       });
 
-     
     jest
       .spyOn(SpotifyWebApi.prototype, 'authorizationCodeGrant')
       .mockImplementation(() => {
@@ -84,7 +83,7 @@ describe('SpotifyClient', () => {
     // Mock the searchAlbums method for this specific test
     const searchAlbumsSpy = jest
       .spyOn(SpotifyWebApi.prototype, 'searchAlbums')
-       
+
       .mockImplementation(() => {
         return Promise.resolve(mockAlbumData as any);
       });

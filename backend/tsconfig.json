@@ -7,14 +7,13 @@
     "outDir": "backend/dist",
     "rootDir": ".",
     "strict": true,
-    "moduleDetection": "force",
-    "resolveJsonModule": true
+    "moduleDetection": "force"
   },
   "include": [
     "src/**/*",
     "scripts/**/*",
-    "controllers/**/*", 
-    "interfaces/**/*", 
+    "controllers/**/*",
+    "interfaces/**/*",
     "routes/**/*",
     "tests/**/*",
     "utils/**/*",

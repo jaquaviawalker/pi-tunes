@@ -8,14 +8,12 @@ const playbackRoutes_1 = __importDefault(require("./routes/playbackRoutes"));
 const authRoutes_1 = __importDefault(require("./routes/authRoutes"));
 const authRoutes_2 = __importDefault(require("./routes/authRoutes"));
 const testRoutes_1 = __importDefault(require("./routes/testRoutes"));
-// Using require for cors since TypeScript can't find type declarations
-// eslint-disable-next-line @typescript-eslint/no-require-imports
-const cors = require('cors');
+const cors_1 = __importDefault(require("cors"));
 const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
 const app = (0, express_1.default)();
 app.use(express_1.default.json());
-app.use(cors());
+app.use((0, cors_1.default)());
 app.use('/api', playbackRoutes_1.default);
 app.use('/api', authRoutes_2.default);
 app.use('/api', authRoutes_1.default);

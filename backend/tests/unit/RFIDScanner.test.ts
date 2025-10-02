@@ -26,7 +26,9 @@ describe('RFID Scanner Interface', () => {
   describe('scan()', () => {
     test('throws error if scan called before Initialization', async () => {
       const rfidScanner = new RFIDScanner();
-      await expect(rfidScanner.scan()).rejects.toThrow('RFIDScanner not initialized');
+      await expect(rfidScanner.scan()).rejects.toThrow(
+        'RFIDScanner not initialized'
+      );
     });
     test('passes when scanner is initialized and returns a tag ID ', async () => {
       const rfidScanner = new RFIDScanner();

@@ -39,10 +39,11 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.36.0",
+    "@types/body-parser": "^1.19.6",
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.3",
     "@types/jest": "^30.0.0",
-    "@types/node": "^24.5.2",
+    "@types/node": "^24.6.2",
     "@types/spotify-web-api-node": "^5.0.11",
     "@typescript-eslint/eslint-plugin": "^8.45.0",
     "@typescript-eslint/parser": "^8.45.0",

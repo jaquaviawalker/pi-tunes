@@ -6,8 +6,11 @@ import { SpotifyClient } from './src/SpotifyClient';
 import dotenv from 'dotenv';
 dotenv.config();
 
+const cors = require('cors');
+
 const app = express();
 app.use(express.json());
+app.use(cors());
 
 // Basic route for Task 5A - "Hello World" response
 app.get('/', (req: Request, res: Response) => {
@@ -91,6 +94,36 @@ app.post('/scan/:tagId', async (req: Request, res: Response) => {
     }
   }
 });
+
+app.post('/play', async (req, res) => {
+  try {
+    const scanner = new RFIDScanner();
+    await scanner.init();
+
+    const albumId = await scanner.scanAlbum();
+
+    const client = new SpotifyClient();
+    await client.authCode();
+    const device = await client.getAvailableDevices();
+
+    client.setAlbumId(albumId);
+    client.setDeviceId(device.id);
+
+    await client.playAlbum();
+
+    res.status(200).json({
+      success: true,
+      message: `Album is now playing on ${device.name}`,
+    });
+  } catch (error) {
+    console.error('Error playing album:', error);
+    res.status(500).json({
+      success: false,
+      error: error instanceof Error ? error.message : 'Unknown error',
+    });
+  }
+});
+
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}/`);

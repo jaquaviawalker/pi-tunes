@@ -1,5 +1,4 @@
 import {
-  AlbumMetadata,
   TagMapping,
   MappingResult,
   MappingsCollection,

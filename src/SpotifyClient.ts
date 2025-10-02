@@ -34,6 +34,10 @@ export class SpotifyClient {
 
   public code: string;
 
+  private albumId: string;
+
+  private deviceId: string;
+
   /**
    * Creates a new SpotifyClient instance.
    * Initializes the Spotify Web API with credentials from environment variables.
@@ -41,6 +45,8 @@ export class SpotifyClient {
    */
   constructor() {
     this.code = '';
+    this.deviceId = '';
+    this.albumId = '';
     this.authenticationStatus = false;
     this.tokenExpirationTime = 0;
     this.tokenExpirationThreshold = 60000;
@@ -91,7 +97,12 @@ export class SpotifyClient {
 
   public userLogin(): string {
     let state = this.generateRandomString(16);
-    const scopes = ['user-read-private', 'user-read-email'];
+    const scopes = [
+      'user-read-private',
+      'user-read-email',
+      'user-read-playback-state',
+      'user-read-playback-state',
+    ];
     return this.spotifyApi.createAuthorizeURL(scopes, state);
   }
 
@@ -148,6 +159,12 @@ export class SpotifyClient {
     }
   }
 
+  private async ensureAuth(): Promise<void> {
+    if (!this.isAuthenticated() || this.isTokenExpired()) {
+      await this.refreshAccessToken();
+    }
+  }
+
   /**
    * Searches for albums on Spotify based on a query string.
    *
@@ -184,6 +201,43 @@ export class SpotifyClient {
       throw error;
     }
   }
+
+  public async getAvailableDevices(): Promise<any> {
+    await this.ensureAuth();
+    try {
+      const response = await this.spotifyApi.getMyDevices();
+      const devices = response.body.devices || [];
+      if (devices.length === 0) {
+        console.log('No devices found');
+        return null;
+      }
+      const firstDevice = devices[0];
+      return {
+        id: firstDevice.id,
+        is_active: firstDevice.is_active,
+        is_private_session: firstDevice.is_private_session,
+        is_restricted: firstDevice.is_restricted,
+        name: firstDevice.name,
+        type: firstDevice.type,
+      };
+    } catch (error) {
+      console.error('Error getting devices', error);
+      throw error;
+    }
+  }
+
+  public async playAlbum(): Promise<void> {
+    await this.ensureAuth();
+    try {
+      await this.spotifyApi.play({
+        device_id: this.deviceId,
+        context_uri: `spotify:album:${this.albumId}`,
+      });
+    } catch (error) {
+      console.error('Error playing album', error);
+      throw error;
+    }
+  }
   /**
    * Checks if the client is currently authenticated with Spotify.
    *
@@ -206,5 +260,12 @@ export class SpotifyClient {
     return (
       Date.now() > this.tokenExpirationTime - this.tokenExpirationThreshold
     );
+  }
+  public setAlbumId(albumId: string): void {
+    this.albumId = albumId;
+  }
+
+  public setDeviceId(deviceId: string): void {
+    this.deviceId = deviceId;
   }
 }

@@ -6,3 +6,5 @@ const router = express.Router();
 router.get('/login', handleLogin);
 
 router.get('/callback', handleCallback);
+
+export default router;

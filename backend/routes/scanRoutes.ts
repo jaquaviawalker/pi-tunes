@@ -4,3 +4,5 @@ import { handleScanTagToAlbum } from '../controllers/scanController';
 const router = express.Router();
 
 router.post('/scanAlbum', handleScanTagToAlbum);
+
+export default router;

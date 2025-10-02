@@ -4,7 +4,7 @@
     "module": "CommonJS",
     "moduleResolution": "node",
     "esModuleInterop": true,
-    "outDir": "backend/dist",
+    "outDir": "dist",
     "rootDir": ".",
     "strict": true,
     "moduleDetection": "force"

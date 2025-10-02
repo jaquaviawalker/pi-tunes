@@ -9,8 +9,8 @@
     "build": "tsc",
     "pretest": "tsc",
     "test:spotify": "npm run build && node scripts/test-spotify.js",
-    "lint": "eslint --ext .ts --ignore-pattern 'dist/**' --ignore-pattern 'backend/dist/**' --ignore-pattern 'scripts/*.js' .",
-    "lint:fix": "eslint --ext .ts --ignore-pattern 'dist/**' --ignore-pattern 'backend/dist/**' --ignore-pattern 'scripts/*.js' . --fix",
+    "lint": "eslint --ext .ts --ignore-pattern 'dist/**' --ignore-pattern 'scripts/*.js' .",
+    "lint:fix": "eslint --ext .ts --ignore-pattern 'dist/**' --ignore-pattern 'scripts/*.js' . --fix",
     "lint:all": "eslint . --ext .ts,.js --fix"
   },
   "repository": {

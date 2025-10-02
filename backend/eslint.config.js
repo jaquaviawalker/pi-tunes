@@ -10,7 +10,6 @@ export default tseslint.config(
       'dist/**',
       'coverage/**',
       '*.json',
-      'backend/dist/**',
       'scripts/*.js', // Ignore script JavaScript files
     ],
     languageOptions: {

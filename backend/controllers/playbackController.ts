@@ -1,7 +1,7 @@
-import { AlbumMapping } from '../../src/AlbumMapping';
-import { RFIDScanner } from '../../src/RFIDScanner';
-import { SpotifyClient, AuthType } from '../../src/SpotifyClient';
-import logger from '../../utils/logger';
+import { AlbumMapping } from '../src/AlbumMapping';
+import { RFIDScanner } from '../src/RFIDScanner';
+import { SpotifyClient, AuthType } from '../src/SpotifyClient';
+import logger from '../utils/logger';
 import { Request, Response } from 'express';
 
 export async function handlePlayAlbum(req: Request, res: Response) {

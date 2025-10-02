@@ -1,6 +1,6 @@
-import logger from '../../utils/logger';
+import logger from '../utils/logger';
 import { Request, Response } from 'express';
-import { SpotifyClient, AuthType } from '../../src/SpotifyClient';
+import { SpotifyClient, AuthType } from '../src/SpotifyClient';
 
 export async function handleLogin(req: Request, res: Response) {
   try {

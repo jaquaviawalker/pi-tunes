@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "target": "ES2020",
-  "module": "CommonJS",
+    "module": "CommonJS",
     "moduleResolution": "node",
     "esModuleInterop": true,
     "outDir": "./dist",
@@ -9,5 +9,5 @@
     "strict": true,
     "moduleDetection": "force"
   },
-  "include": ["src/**/*", "scripts/**/*"]
+  "include": ["src/**/*", "scripts/**/*", "interfaces/RfidConfiguration.ts"]
 }

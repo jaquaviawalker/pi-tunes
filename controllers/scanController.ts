@@ -1,0 +1,46 @@
+app.post('/scan/:tagId', async (req: Request, res: Response) => {
+  try {
+    const tagId = req.params.tagId;
+    const album = req.query.album as string;
+    const artist = req.query.artist as string;
+    if (!album || !artist) {
+      throw new Error('Must enter artist name and album name');
+    }
+    if (!tagId || tagId == '') {
+      throw new Error('No valid Tag Id Exists');
+    }
+    if (!/^[A-Fa-f0-9]{8,20}$/.test(tagId)) {
+      throw new Error('Invalid tag format: must be 8-20 hex characters');
+    }
+    const client = new SpotifyClient();
+    await client.authenticate();
+    const albums = await client.searchAlbum(album);
+    if (!Array.isArray(albums) || albums.length === 0) {
+      throw new Error('No albums found for the given album name.');
+    }
+    const match = albums.find(
+      (album) =>
+        typeof album.artist === 'string' &&
+        album.artist.trim().toLowerCase() === artist.toLowerCase()
+    );
+    if (!match) {
+      throw new Error('No matching album found for artist');
+    }
+    const albumId = match.id;
+
+    const instance = await AlbumMapping.create();
+    await instance.addMapping(tagId, albumId);
+    res.status(200).json({
+      success: true,
+      tagId: tagId,
+      message: `Tag ID: ${tagId} scanned and mapped to Album: ${album} by ${artist} successfully`,
+    });
+  } catch (error: unknown) {
+    console.error('Error scanning Tag', error);
+    if (error instanceof Error) {
+      res.status(400).json({ success: false, error: error.message });
+    } else {
+      res.status(400).json({ success: false, error: 'Unknown error' });
+    }
+  }
+});

@@ -1,4 +1,4 @@
-import { Configuration } from './RfidConfiguration';
+import { Configuration } from '../interfaces/RfidConfiguration';
 import { AlbumMapping } from './AlbumMapping';
 import logger from '../utils/logger';
 

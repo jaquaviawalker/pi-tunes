@@ -8,3 +8,17 @@ export interface AlbumMetadata {
   duration?: number; // in seconds
   trackCount?: number;
 }
+
+export interface TagMapping {
+  albumId: string;
+  metadata?: AlbumMetadata;
+}
+
+export interface MappingResult {
+  tagId: string;
+  albumId: string;
+}
+
+export interface MappingsCollection {
+  [tagId: string]: TagMapping;
+}

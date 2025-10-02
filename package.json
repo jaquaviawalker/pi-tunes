@@ -28,7 +28,9 @@
     "express": "^5.1.0",
     "express-session": "^1.18.2",
     "jsonwebtoken": "^9.0.2",
-    "spotify-web-api-node": "^5.0.2"
+    "path": "^0.12.7",
+    "spotify-web-api-node": "^5.0.2",
+    "winston": "^3.18.3"
   },
   "devDependencies": {
     "@types/express": "^5.0.3",

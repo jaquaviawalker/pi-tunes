@@ -17,6 +17,7 @@
     "routes/**/*",
     "tests/**/*",
     "utils/**/*",
-    "server.ts"
+    "server.ts",
+    "types.d.ts"
   ]
 }

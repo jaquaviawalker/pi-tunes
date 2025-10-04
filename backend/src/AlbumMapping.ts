@@ -94,7 +94,7 @@ export class AlbumMapping {
       await writeFile(this.filePath, JSON.stringify(data, null, 2), 'utf8');
 
       logger.info('Mappings saved successfully', { path: this.filePath });
-    } catch (err: unknown) {
+    } catch (err) {
       logger.error('Error writing mapping file', {
         error: err,
         path: this.filePath,
@@ -112,7 +112,7 @@ export class AlbumMapping {
       const data = await readFile(this.filePath, 'utf8');
       this.mappings = JSON.parse(data);
       logger.info('Mappings loaded successfully', { path: this.filePath });
-    } catch (error: unknown) {
+    } catch (error) {
       // If file doesn't exist, initialize with empty mappings
       if (
         error instanceof Error &&
@@ -147,11 +147,12 @@ export class AlbumMapping {
 
       this.mappings[tagId] = {
         albumId,
+        mappedAt: new Date().toISOString(),
       } as TagMapping;
 
       await this.saveMapping();
       logger.info('Added mapping', { tagId, albumId });
-    } catch (error: unknown) {
+    } catch (error) {
       logger.error('Error adding mapping album to tag', {
         error,
         tagId,
@@ -172,7 +173,7 @@ export class AlbumMapping {
       delete this.mappings[tagId];
       await this.saveMapping();
       logger.info('Removed mapping', { tagId });
-    } catch (error: unknown) {
+    } catch (error) {
       logger.error('Error removing mapping', { error, tagId });
       throw error;
     }
@@ -210,7 +211,7 @@ export class AlbumMapping {
       }
       await this.saveMapping();
       logger.info('Updated mapping', { tagId, newAlbumId });
-    } catch (error: unknown) {
+    } catch (error) {
       logger.error('Unable to update mapping', { error, tagId, newAlbumId });
       throw error;
     }
@@ -234,7 +235,7 @@ export class AlbumMapping {
       }
       logger.debug('No album found for tag', { tagId });
       return null;
-    } catch (error: unknown) {
+    } catch (error) {
       logger.error('Error retrieving album ID', { error, tagId });
       throw error;
     }
@@ -249,7 +250,7 @@ export class AlbumMapping {
     try {
       this.validateInput(tagId);
       return !!this.mappings[tagId];
-    } catch (error: unknown) {
+    } catch (error) {
       logger.error('Error checking tag existence', { error, tagId });
       return false;
     }

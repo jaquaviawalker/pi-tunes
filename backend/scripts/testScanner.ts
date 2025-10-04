@@ -1,20 +1,25 @@
-import { RFIDScanner } from '../src/RFIDScanner.js';
-const testScanner = async () => {
-  try {
-    const scanner = new RFIDScanner();
-    await scanner.init();
+import { Mfrc522Scanner } from '../src/Mfrc522Scanner';
 
-    for (let i = 1; i <= 10; i++) {
-      const tagID = scanner.scan();
-      console.log(`RFID Tag Scanned: ${tagID}`);
-    }
-  } catch (error) {
-    if (error instanceof Error) {
-      console.error('An error occurred:', error.message);
-    } else {
-      console.error('An unknown error occurred:', error);
-    }
+async function testScanner() {
+  console.log('=== RFID Scanner Test ===\n');
+
+  const scanner = new Mfrc522Scanner();
+
+  console.log('Place a card on the reader...');
+  const result = scanner.readCard();
+
+  if (result.success) {
+    console.log('✅ Card detected!');
+    console.log(`UID: ${result.uid}`);
+    console.log(`Message: ${result.message}`);
+  } else {
+    console.log('❌ Scan failed');
+    console.log(`Message: ${result.message}`);
   }
-};
 
-testScanner();
+  // Clean up
+  scanner.dispose();
+}
+
+// Run the test
+testScanner().catch(console.error);
